@@ -46,7 +46,16 @@ def string_to_location(s):
        is outside of the correct range (between 'A' and 'E' for s[0] and
        between '1' and '5' for s[1]
        """
-    return (0, 0)  # Replace with code
+    if s[0].upper() not in ['A', 'B', 'C', 'D', 'E']:
+        raise ValueError(
+            "Wrong position given column should be between A to E!")
+    if int(s[1]) > 5:
+        raise ValueError("Wrong value!")
+    for index, letter in enumerate(['A', 'B', 'C', 'D', 'E']):
+        if s[0] == letter:
+            first_pos = index
+    second_pos = int(s[1]) - 1
+    return (first_pos, second_pos)  # Replace with code
 
 
 def location_to_string(location):
@@ -54,7 +63,13 @@ def location_to_string(location):
     Similarly to the previous function, this function should raise
     ValueError exception if the input is outside of the correct range
     """
-    return 'A1'  # Replace with code
+    if location[0] not in range(0, 6) or location[1] not in range(0, 6):
+        raise ValueError("Wrong range given!")
+    for index, letter in enumerate(['A', 'B', 'C', 'D', 'E']):
+        if index == location[0]:
+            first_pos = letter
+    second_pos = location[1] + 1
+    return '{}{}'.format(first_pos, second_pos)  # Replace with code
 
 
 def at(location):

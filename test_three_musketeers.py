@@ -47,7 +47,9 @@ def test_string_to_location():
 
 def test_location_to_string():
     # Replace with tests
-    assert location_to_string((0, 0)) == "A0"
+    assert location_to_string((0, 1)) == "A2"
+    with pytest.raises(ValueError):
+        location_to_string((6, 6))
 
 
 def test_at():
