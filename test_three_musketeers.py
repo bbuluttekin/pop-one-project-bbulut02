@@ -54,16 +54,17 @@ def test_location_to_string():
 
 def test_at():
     # Replace with tests
-    assert at((0, 1)) == R
+    assert at((0, 3)) == M
 
 
 def test_all_locations():
     # Replace with tests
     locations = []
-    for row in board1:
-        for location in row:
-            locations.append(location)
+    for i in range(0, 5):
+        for j in range(0, 5):
+            locations.append((i, j))
     assert all_locations() == locations
+    assert len(locations) == 25
 
 
 def test_adjacent_location():
@@ -73,7 +74,7 @@ def test_adjacent_location():
 
 def test_is_legal_move_by_musketeer():
     # Replace with tests
-    assert is_legal_move_by_musketeer((1, 3), right) == False
+    assert is_legal_move_by_musketeer((1, 3), up) == False
 
 
 def test_is_legal_move_by_enemy():
