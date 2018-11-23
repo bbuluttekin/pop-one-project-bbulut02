@@ -144,12 +144,12 @@ def can_move_piece_at(location):
     can_move = False
     if at(location) == "M":
         for direction in ["up", "down", "left", "right"]:
-            if is_legal_move_by_musketeer(location, direction) == True:
+            if is_legal_move_by_musketeer(location, direction):
                 can_move = True
                 break
     elif at(location) == "R":
         for direction in ["up", "down", "left", "right"]:
-            if is_legal_move_by_enemy(location, direction) == True:
+            if is_legal_move_by_enemy(location, direction):
                 can_move = True
                 break
     else:
@@ -165,7 +165,7 @@ def has_some_legal_move_somewhere(who):
     have_moves = False
     for location in all_locations():
         if at(location) == who:
-            if can_move_piece_at(location) == True:
+            if can_move_piece_at(location):
                 have_moves = True
                 break
     return have_moves  # Replace with code
@@ -181,11 +181,11 @@ def possible_moves_from(location):
     possible_moves = []
     if at(location) == "M":
         for direction in ["up", "down", "left", "right"]:
-            if is_legal_move_by_musketeer(location, direction) == True:
+            if is_legal_move_by_musketeer(location, direction):
                 possible_moves.append(direction)
     elif at(location) == "R":
         for direction in ["up", "down", "left", "right"]:
-            if is_legal_move_by_enemy(location, direction) == True:
+            if is_legal_move_by_enemy(location, direction):
                 possible_moves.append(direction)
     return possible_moves  # Replace with code
 
@@ -207,30 +207,34 @@ def is_within_board(location, direction):
     You can assume that input will always be in correct range.
     """
     is_in_board = False
-    if adjacent_location(location, direction)[0] in range(5) and adjacent_location(location, direction)[1] in range(5):
+    row, col = adjacent_location(location, direction)
+    if row in range(5) and col in range(5):
         is_in_board = True
     return is_in_board  # Replace with code
 
 
 def all_possible_moves_for(player):
-    """Returns every possible move for the player ('M' or 'R') as a list
-       (location, direction) tuples.
-       You can assume that input will always be in correct range."""
+    """
+    Returns every possible move for the player ('M' or 'R') as a list
+    (location, direction) tuples.
+    You can assume that input will always be in correct range.
+    """
     return []  # Replace with code
 
 
 def make_move(location, direction):
-    """Moves the piece in location in the indicated direction.
+    """
+    Moves the piece in location in the indicated direction.
     Doesn't check if the move is legal. You can assume that input will always
-    be in correct range."""
+    be in correct range.
+    """
     return (0, 0)  # Replace with code
 
 
 def choose_computer_move(who):
-    """The computer chooses a move for a Musketeer (who = 'M') or an
-       enemy (who = 'R') and returns it as the tuple (location, direction),
-       where a location is a (row, column) tuple as usual.
-       You can assume that input will always be in correct range."""
+    """
+    The computer chooses a move for a Musketeer (who = 'M') or an enemy (who = 'R') and returns it as the tuple (location, direction), where a location is a (row, column) tuple as usual. You can assume that input will always be in correct range.
+    """
     return ((0, 0), "right")  # Replace with code
 
 
