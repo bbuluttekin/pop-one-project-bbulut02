@@ -172,23 +172,44 @@ def has_some_legal_move_somewhere(who):
 
 
 def possible_moves_from(location):
-    """Returns a list of directions ('left', etc.) in which it is legal
-       for the player at location to move. If there is no player at
-       location, returns the empty list, [].
-       You can assume that input will always be in correct range."""
-    return []  # Replace with code
+    """
+    Returns a list of directions ('left', etc.) in which it is legal
+    for the player at location to move. If there is no player at
+    location, returns the empty list, [].
+    You can assume that input will always be in correct range.
+    """
+    possible_moves = []
+    if at(location) == "M":
+        for direction in ["up", "down", "left", "right"]:
+            if is_legal_move_by_musketeer(location, direction) == True:
+                possible_moves.append(direction)
+    elif at(location) == "R":
+        for direction in ["up", "down", "left", "right"]:
+            if is_legal_move_by_enemy(location, direction) == True:
+                possible_moves.append(direction)
+    return possible_moves  # Replace with code
 
 
 def is_legal_location(location):
-    """Tests if the location is legal on a 5x5 board.
-    You can assume that input will always be in correct range."""
-    return True  # Replace with code
+    """
+    Tests if the location is legal on a 5x5 board.
+    You can assume that input will always be in correct range.
+    """
+    is_legal = False
+    if location[0] in range(5) and location[1] in range(5):
+        is_legal = True
+    return is_legal  # Replace with code
 
 
 def is_within_board(location, direction):
-    """Tests if the move stays within the boundaries of the board.
-    You can assume that input will always be in correct range."""
-    return True  # Replace with code
+    """
+    Tests if the move stays within the boundaries of the board.
+    You can assume that input will always be in correct range.
+    """
+    is_in_board = False
+    if adjacent_location(location, direction)[0] in range(5) and adjacent_location(location, direction)[1] in range(5):
+        is_in_board = True
+    return is_in_board  # Replace with code
 
 
 def all_possible_moves_for(player):

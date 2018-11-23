@@ -108,17 +108,21 @@ def test_has_some_legal_move_somewhere():
 
 def test_possible_moves_from():
     # Replace with tests
-    assert possible_moves_from((1, 3)) == [left, down]
+    assert 'left' in possible_moves_from((1, 3))
+    assert 'down' in possible_moves_from((1, 3))
+    assert "up" not in possible_moves_from((1, 3))
 
 
 def test_is_legal_location():
     # Replace with tests
     assert is_legal_location((2, 3)) == True
+    assert is_legal_location((5, 1)) == False
 
 
 def test_is_within_board():
     # Replace with tests
     assert is_within_board((1, 3), down) == True
+    assert is_within_board((4, 4), right) == False
 
 
 def test_all_possible_moves_for():
