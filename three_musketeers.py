@@ -63,7 +63,7 @@ def location_to_string(location):
     Similarly to the previous function, this function should raise
     ValueError exception if the input is outside of the correct range
     """
-    if location[0] not in range(0, 6) or location[1] not in range(0, 6):
+    if location[0] not in range(5) or location[1] not in range(5):
         raise ValueError("Wrong range given!")
     for index, letter in enumerate(['A', 'B', 'C', 'D', 'E']):
         if index == location[0]:
@@ -81,8 +81,8 @@ def at(location):
 def all_locations():
     """Returns a list of all 25 locations on the board."""
     all_loc = []
-    for i in range(0, 5):
-        for j in range(0, 5):
+    for i in range(5):
+        for j in range(5):
             all_loc.append((i, j))
     return all_loc  # Replace with code
 
@@ -112,28 +112,49 @@ def is_legal_move_by_musketeer(location, direction):
     if at(location) != 'M':
         raise ValueError("No Musketeer in the given location!")
     # Replace with code
-    return at(adjacent_location(location, direction)) != "M"
+    return at(adjacent_location(location, direction)) == "R"
 
 
 def is_legal_move_by_enemy(location, direction):
     """Tests if the enemy at the location can move in the direction.
     You can assume that input will always be in correct range. Raises
     ValueError exception if at(location) is not 'R'"""
-    return True  # Replace with code
+    if at(location) != "R":
+        raise ValueError("No Cardinals men in that location!")
+    # Replace with code
+    return at(adjacent_location(location, direction)) == "-"
 
 
 def is_legal_move(location, direction):
     """Tests whether it is legal to move the piece at the location
     in the given direction.
     You can assume that input will always be in correct range."""
-    return True  # Replace with code
+    is_legal = None
+    if at(location) == "M":
+        is_legal = is_legal_move_by_musketeer(location, direction)
+    else:
+        is_legal = is_legal_move_by_enemy(location, direction)
+    return is_legal  # Replace with code
 
 
 def can_move_piece_at(location):
     """Tests whether the player at the location has at least one move available.
     You can assume that input will always be in correct range.
     You can assume that input will always be in correct range."""
-    return True  # Replace with code
+    can_move = False
+    if at(location) == "M":
+        for direction in ["up", "down", "left", "right"]:
+            if is_legal_move_by_musketeer(location, direction) == True:
+                can_move = True
+                break
+    elif at(location) == "R":
+        for direction in ["up", "down", "left", "right"]:
+            if is_legal_move_by_enemy(location, direction) == True:
+                can_move = True
+                break
+    else:
+        can_move = False
+    return can_move  # Replace with code
 
 
 def has_some_legal_move_somewhere(who):
@@ -141,7 +162,13 @@ def has_some_legal_move_somewhere(who):
     be either 'M' or 'R'). Does not provide any information on where
     the legal move is.
     You can assume that input will always be in correct range."""
-    return True  # Replace with code
+    have_moves = False
+    for location in all_locations():
+        if at(location) == who:
+            if can_move_piece_at(location) == True:
+                have_moves = True
+                break
+    return have_moves  # Replace with code
 
 
 def possible_moves_from(location):

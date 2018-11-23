@@ -64,7 +64,7 @@ def test_all_locations():
         for j in range(0, 5):
             locations.append((i, j))
     assert all_locations() == locations
-    assert len(locations) == 25
+    assert len(all_locations()) == 25
 
 
 def test_adjacent_location():
@@ -79,14 +79,15 @@ def test_is_legal_move_by_musketeer():
 
 def test_is_legal_move_by_enemy():
     # Replace with tests
-    assert is_legal_move_by_enemy((2, 2), up) == False
+    assert is_legal_move_by_enemy((2, 1), up) == True
+    assert is_legal_move_by_enemy((2, 1), right) == False
 
 
 def test_is_legal_move():
     # Replace with tests
-    t_location = (0, 3)
+    t_location = (1, 3)
     t_direction = down
-    if at(t_location) == 'M':
+    if board1[t_location[0]][t_location[1]] == 'M':
         assert is_legal_move_by_musketeer(t_location, t_direction) == True
     else:
         assert is_legal_move_by_enemy(t_location, t_direction) == True
