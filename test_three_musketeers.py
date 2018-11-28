@@ -28,6 +28,7 @@ def test_set_board():
     assert at((0, 0)) == _
     assert at((1, 2)) == R
     assert at((1, 3)) == M
+    assert at((1, 0)) == "-"
     # eventually add some board2 and at least 3 tests with it
 
 
@@ -70,6 +71,7 @@ def test_all_locations():
 def test_adjacent_location():
     # Replace with tests
     assert adjacent_location((0, 0), right) == (0, 1)
+    assert adjacent_location((1, 2), up) == (0, 2)
 
 
 def test_is_legal_move_by_musketeer():
@@ -111,6 +113,10 @@ def test_possible_moves_from():
     assert 'left' in possible_moves_from((1, 3))
     assert 'down' in possible_moves_from((1, 3))
     assert "up" not in possible_moves_from((1, 3))
+    assert "up" in possible_moves_from((1, 2))
+    assert "left" in possible_moves_from((1, 2))
+    assert "up" in possible_moves_from((2, 1))
+    assert "left" in possible_moves_from((2, 1))
 
 
 def test_is_legal_location():
@@ -131,23 +137,33 @@ def test_all_possible_moves_for():
         ((1, 3), down),
         ((1, 3), left),
         ((2, 2), left),
-        ((2, 2), down),
         ((2, 2), right)
     ]
+    r_moves = [
+        ((1, 2), up),
+        ((1, 2), left),
+        ((2, 1), up),
+        ((2, 1), left)
+    ]
+    for move in r_moves:
+        assert move in all_possible_moves_for("R")
     for item in m_moves:
         assert item in all_possible_moves_for("M")
 
 
 def test_make_move():
     # Replace with tests
-    assert make_move((1, 3), down) == (2, 3)
+    t_player = at((1, 3))
+    make_move((1, 3), down)
+    assert at(adjacent_location((1, 3), down)) == t_player
 
 
 def test_choose_computer_move():
     # Replace with tests; should work for both 'M' and 'R'
-    assert choose_computer_move('M') == ((1, 2), left)
+    #assert choose_computer_move('M') == ((1, 3), down)
+    assert choose_computer_move("R") == ((1, 2), up)
 
 
 def test_is_enemy_win():
     # Replace with tests
-    assert is_enemy_win() == True
+    assert is_enemy_win() == False

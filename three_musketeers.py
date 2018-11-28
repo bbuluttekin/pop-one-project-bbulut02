@@ -15,10 +15,9 @@
 
 def create_board():
     global board
-    """Creates the initial Three Musketeers board and makes it globally
-       available (That is, it doesn't have to be passed around as a
-       parameter.) 'M' represents a Musketeer, 'R' represents one of
-       Cardinal Richleau's men, and '-' denotes an empty space."""
+    """
+    Creates the initial Three Musketeers board and makes it globally available (That is, it doesn't have to be passed around as a parameter.) 'M' represents a Musketeer, 'R' represents one ofCardinal Richleau's men, and '-' denotes an empty space.
+    """
     m = 'M'
     r = 'R'
     board = [[r, r, r, r, m],
@@ -35,17 +34,16 @@ def set_board(new_board):
 
 
 def get_board():
-    """Just returns the board. Possibly useful for unit tests."""
+    """
+    Just returns the board. Possibly useful for unit tests.
+    """
     return board
 
 
 def string_to_location(s):
-    """Given a two-character string (such as 'A5'), returns the designated
-       location as a 2-tuple (such as (0, 4)).
-       The function should raise ValueError exception if the input
-       is outside of the correct range (between 'A' and 'E' for s[0] and
-       between '1' and '5' for s[1]
-       """
+    """
+    Given a two-character string (such as 'A5'), returns the designated location as a 2-tuple (such as (0, 4)). The function should raise ValueError exception if the input is outside of the correct range (between 'A' and 'E' for s[0] and between '1' and '5' for s[1]
+    """
     if s[0].upper() not in ['A', 'B', 'C', 'D', 'E']:
         raise ValueError(
             "Wrong position given column should be between A to E!")
@@ -59,9 +57,11 @@ def string_to_location(s):
 
 
 def location_to_string(location):
-    """Returns the string representation of a location.
-    Similarly to the previous function, this function should raise
-    ValueError exception if the input is outside of the correct range
+    """
+    Returns the string representation of a location.
+    Similarly to the previous function, this function should
+    raises ValueError exception if the input is outside of the
+    correct range
     """
     if location[0] not in range(5) or location[1] not in range(5):
         raise ValueError("Wrong range given!")
@@ -73,8 +73,10 @@ def location_to_string(location):
 
 
 def at(location):
-    """Returns the contents of the board at the given location.
-    You can assume that input will always be in correct range."""
+    """
+    Returns the contents of the board at the given location.
+    You can assume that input will always be in correct range.
+    """
     return board[location[0]][location[1]]
 
 
@@ -88,9 +90,9 @@ def all_locations():
 
 
 def adjacent_location(location, direction):
-    """Return the location next to the given one, in the given direction.
-       Does not check if the location returned is legal on a 5x5 board.
-       You can assume that input will always be in correct range."""
+    """
+    Return the location next to the given one, in the given direction. Does not check if the location returned is legal on a 5x5 board. You can assume that input will always be in correct range.
+    """
     direction = direction.lower()
     (row, column) = location
     new_location = None
@@ -106,62 +108,62 @@ def adjacent_location(location, direction):
 
 
 def is_legal_move_by_musketeer(location, direction):
-    """Tests if the Musketeer at the location can move in the direction.
-    You can assume that input will always be in correct range. Raises
-    ValueError exception if at(location) is not 'M'"""
+    """
+    Tests if the Musketeer at the location can move in the direction. You can assume that input will always be in correct range. Raises ValueError exception if at(location) is not 'M'
+    """
+    is_musketeer_legal = False
     if at(location) != 'M':
         raise ValueError("No Musketeer in the given location!")
+    new_loc = adjacent_location(location, direction)
+    if new_loc[0] in range(5) and new_loc[1] in range(5):
+        is_musketeer_legal = at(new_loc) == "R"
     # Replace with code
-    return at(adjacent_location(location, direction)) == "R"
+    return is_musketeer_legal
 
 
 def is_legal_move_by_enemy(location, direction):
-    """Tests if the enemy at the location can move in the direction.
-    You can assume that input will always be in correct range. Raises
-    ValueError exception if at(location) is not 'R'"""
+    """
+    Tests if the enemy at the location can move in the direction. You can assume that input will always be in correct range. Raises ValueError exception if at(location) is not 'R'
+    """
+    is_enemy_legal = False
     if at(location) != "R":
         raise ValueError("No Cardinals men in that location!")
+    new_loc = adjacent_location(location, direction)
+    if new_loc[0] in range(5) and new_loc[1] in range(5):
+        is_enemy_legal = at(new_loc) == "-"
     # Replace with code
-    return at(adjacent_location(location, direction)) == "-"
+    return is_enemy_legal
 
 
 def is_legal_move(location, direction):
-    """Tests whether it is legal to move the piece at the location
-    in the given direction.
-    You can assume that input will always be in correct range."""
-    is_legal = None
+    """
+    Tests whether it is legal to move the piece at the location
+    in the given direction. You can assume that input will always be in correct range.
+    """
+    is_legal = False
     if at(location) == "M":
         is_legal = is_legal_move_by_musketeer(location, direction)
-    else:
+    elif at(location) == "R":
         is_legal = is_legal_move_by_enemy(location, direction)
     return is_legal  # Replace with code
 
 
 def can_move_piece_at(location):
-    """Tests whether the player at the location has at least one move available.
-    You can assume that input will always be in correct range.
-    You can assume that input will always be in correct range."""
+    """
+    Tests whether the player at the location has at least one move available. You can assume that input will always be in correct range. You can assume that input will always be in correct range.
+    """
     can_move = False
-    if at(location) == "M":
-        for direction in ["up", "down", "left", "right"]:
-            if is_legal_move_by_musketeer(location, direction):
-                can_move = True
-                break
-    elif at(location) == "R":
-        for direction in ["up", "down", "left", "right"]:
-            if is_legal_move_by_enemy(location, direction):
-                can_move = True
-                break
-    else:
-        can_move = False
+    for direction in ["up", "down", "left", "right"]:
+        if is_legal_move(location, direction):
+            can_move = True
+            break
     return can_move  # Replace with code
 
 
 def has_some_legal_move_somewhere(who):
-    """Tests whether a legal move exists for player "who" (which must
-    be either 'M' or 'R'). Does not provide any information on where
-    the legal move is.
-    You can assume that input will always be in correct range."""
+    """
+    Tests whether a legal move exists for player "who" (which must be either 'M' or 'R'). Does not provide any information on where the legal move is. You can assume that input will always be in correct range.
+    """
     have_moves = False
     for location in all_locations():
         if at(location) == who:
@@ -219,7 +221,13 @@ def all_possible_moves_for(player):
     (location, direction) tuples.
     You can assume that input will always be in correct range.
     """
-    return []  # Replace with code
+    player_moves = []
+    for location in all_locations():
+        if at(location) == player:
+            for direction in possible_moves_from(location):
+                if is_within_board(location, direction):
+                    player_moves.append(((location), direction))
+    return player_moves  # Replace with code
 
 
 def make_move(location, direction):
@@ -228,19 +236,38 @@ def make_move(location, direction):
     Doesn't check if the move is legal. You can assume that input will always
     be in correct range.
     """
-    return (0, 0)  # Replace with code
+    global board
+    if at(location) == "M":
+        board[location[0]][location[1]] = "-"
+        new_row, new_col = adjacent_location(location, direction)
+        board[new_row][new_col] = "M"
+    elif at(location) == "R":
+        board[location[0]][location[1]] = "-"
+        new_row, new_col = adjacent_location(location, direction)
+        board[new_row][new_col] = "R"
+    return None  # Replace with code
 
 
 def choose_computer_move(who):
     """
     The computer chooses a move for a Musketeer (who = 'M') or an enemy (who = 'R') and returns it as the tuple (location, direction), where a location is a (row, column) tuple as usual. You can assume that input will always be in correct range.
     """
-    return ((0, 0), "right")  # Replace with code
+    move_list = all_possible_moves_for(who)
+    return move_list[0]  # Replace with code
 
 
 def is_enemy_win():
     """Returns True if all 3 Musketeers are in the same row or column."""
-    return True  # Replace with code
+    enemy_win = False
+    mus_pos = []
+    for loc in all_locations():
+        if at(loc) == "M":
+            mus_pos.append(loc)
+    if mus_pos[0][0] == mus_pos[1][0] and mus_pos[1][0] == mus_pos[2][0]:
+        enemy_win = True
+    elif mus_pos[0][1] == mus_pos[1][1] and mus_pos[1][1] == mus_pos[2][1]:
+        enemy_win = True
+    return enemy_win  # Replace with code
 
 # ---------- Communicating with the user ----------
 # ----you do not need to modify code below unless you find a bug
@@ -367,3 +394,7 @@ def start():
         else:
             print("The Musketeers win!")
             break
+
+
+if __name__ == "__main__":
+    start()
