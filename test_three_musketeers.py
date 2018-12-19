@@ -21,6 +21,8 @@ def test_create_board():
     assert at((0, 0)) == R
     assert at((0, 4)) == M
     # eventually add at least two more test cases
+    assert at((4, 0)) == M
+    assert at((4, 4)) == R
 
 
 def test_set_board():
@@ -44,6 +46,10 @@ def test_string_to_location():
     assert string_to_location('A1') == (0, 0)
     # eventually add at least one more exception test and two more
     # test with correct inputs
+    with pytest.raises(ValueError):
+        string_to_location("A9")
+    assert string_to_location("E1") == (4, 0)
+    assert string_to_location("B5") == (1, 4)
 
 
 def test_location_to_string():
