@@ -25,6 +25,7 @@ def create_board():
              [r, r, m, r, r],
              [r, r, r, r, r],
              [m, r, r, r, r]]
+    return board
 
 
 def set_board(new_board):
