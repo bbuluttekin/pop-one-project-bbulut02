@@ -1,0 +1,33 @@
+Total coursework mark: 19.7 (out of 20)
+
+Exercise sheets mark: 10  (out of 10)
+
+Project mark:  9.7  (out of 10)
+
+Project feedback and mark details
+
+Correctness and adherence to specification:  30  (out of 30%)
+
+- Your functionality works as specified. Well Done!
+
+
+Completeness of code, tests, and commit history:  27    (out of 30%)   
+
+- Your implementation is complete.
+- Your 20 tests all pass. 
+- Consider adding further tests to increase coverage of your code (as specified in the coursework templates). Aim for 5 to 10 tests per function.
+- GitHub session 7 initial commit is present.
+- Your GitHub commit history is good.
+
+
+Coding style: 10   (out of 10%) 
+
+- Your coding style is overall good. 
+- Consider writing more succinct code where possible. e.g.
+
+
+Extension:  30     (out of 30%) 
+
+- You have correctly implemented the file saving extension which saves both the board and the role of the player. An excellent implementation - well Done!
+
+
